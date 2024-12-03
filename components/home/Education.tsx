@@ -53,35 +53,40 @@ export default function Education() {
               </div>
 
               {/* Type Badge */}
-              <div className="absolute top-8 right-8 bg-white/10 px-4 py-1.5 rounded-full text-sm font-medium flex items-center gap-1.5">
+              <div className="absolute top-8 right-8 hidden md:flex bg-white/10 px-4 py-1.5 rounded-full text-sm font-medium items-center gap-1.5">
+                <GraduationCap className="w-4 h-4 text-yellow-500" />
+                <span>{edu.type}</span>
+              </div>
+              {/* Mobile Type Badge */}
+              <div className="md:hidden flex bg-white/10 px-4 py-1.5 rounded-full text-sm font-medium items-center gap-1.5 mb-4">
                 <GraduationCap className="w-4 h-4 text-yellow-500" />
                 <span>{edu.type}</span>
               </div>
 
               {/* Degree Badges */}
-              <div className="flex flex-wrap gap-3 mb-4">
-                <span className="bg-white/10 px-3 py-1 rounded-full text-sm">
+              <div className="flex flex-wrap gap-2 mb-4">
+                <span className="bg-white/10 px-3 py-1 rounded-full text-xs md:text-sm">
                   {edu.degree}
                 </span>
-                <span className="bg-white/10 px-3 py-1 rounded-full text-sm">
+                <span className="bg-white/10 px-3 py-1 rounded-full text-xs md:text-sm">
                   {edu.course}
                 </span>
               </div>
 
               {/* Title */}
-              <h3 className="text-2xl font-bold mb-4 text-white group-hover:text-yellow-500 transition-colors">
+              <h3 className="text-xl md:text-2xl font-bold mb-4 text-white group-hover:text-yellow-500 transition-colors">
                 {edu.title}
               </h3>
 
               {/* University and Location */}
               <div className="space-y-2 text-white/80">
-                <div className="flex items-center gap-2">
-                  <Building2 className="w-4 h-4 text-yellow-500" />
-                  <span>{edu.university}</span>
+                <div className="flex items-start md:items-center gap-2">
+                  <Building2 className="w-4 h-4 text-yellow-500 shrink-0 mt-1 md:mt-0" />
+                  <span className="text-sm md:text-base">{edu.university}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <MapPin className="w-4 h-4 text-yellow-500" />
-                  <span>{edu.location}</span>
+                  <MapPin className="w-4 h-4 text-yellow-500 shrink-0" />
+                  <span className="text-sm md:text-base">{edu.location}</span>
                 </div>
               </div>
             </motion.div>

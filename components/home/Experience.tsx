@@ -56,33 +56,35 @@ export default function Experience() {
               className="bg-black/90 dark:bg-white/5 rounded-3xl p-8 relative overflow-hidden"
             >
               {/* Company Header */}
-              <div className="flex items-center gap-4 mb-8">
-                <div className="w-12 h-12 rounded-full overflow-hidden bg-white/10 flex items-center justify-center">
-                  {exp.company === "ACCELR" ? (
-                    <Image
-                      src="/accelr.png"
-                      alt={exp.company}
-                      width={36}
-                      height={36}
-                      className="object-contain"
-                      quality={100}
-                      priority
-                    />
-                  ) : (
-                    <Briefcase className="w-6 h-6 text-yellow-500" />
-                  )}
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold text-white">{exp.company}</h3>
-                  <div className="flex items-center gap-2 text-sm text-white/60">
-                    <MapPin className="w-4 h-4" />
-                    <span>{exp.location}</span>
+              <div className="flex flex-col md:flex-row md:items-center gap-4 mb-8">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-full overflow-hidden bg-white/10 flex items-center justify-center">
+                    {exp.company === "ACCELR" ? (
+                      <Image
+                        src="/accelr.png"
+                        alt={exp.company}
+                        width={36}
+                        height={36}
+                        className="object-contain"
+                        quality={100}
+                        priority
+                      />
+                    ) : (
+                      <Briefcase className="w-6 h-6 text-yellow-500" />
+                    )}
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-white">{exp.company}</h3>
+                    <div className="flex items-center gap-2 text-sm text-white/60">
+                      <MapPin className="w-4 h-4" />
+                      <span>{exp.location}</span>
+                    </div>
                   </div>
                 </div>
-                <div className="ml-auto">
-                  <div className="bg-yellow-500/20 text-yellow-500 px-4 py-1.5 rounded-full text-sm font-medium flex items-center gap-2">
+                <div className="md:ml-auto mt-4 md:mt-0">
+                  <div className="bg-yellow-500/20 text-yellow-500 px-4 py-1.5 rounded-full text-sm font-medium flex items-center gap-2 w-fit">
                     <CalendarClock className="w-4 h-4" />
-                    {exp.period}
+                    <span className="text-xs md:text-sm whitespace-nowrap">{exp.period}</span>
                   </div>
                 </div>
               </div>
@@ -90,7 +92,7 @@ export default function Experience() {
               {/* Role */}
               <div className="mb-6">
                 <div className="flex items-center gap-3">
-                  <h4 className="text-md bg-white/10 px-4 py-1.5 rounded-full font-bold text-white">
+                  <h4 className="text-sm md:text-md bg-white/10 px-4 py-1.5 rounded-full font-bold text-white">
                     {exp.role}
                   </h4>
                 </div>
@@ -104,10 +106,10 @@ export default function Experience() {
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
-                    className="flex items-start gap-2 text-white/80"
+                    className="flex items-start gap-3"
                   >
                     <CheckCircle2 className="w-5 h-5 text-yellow-500 mt-1 flex-shrink-0" />
-                    <span>{point}</span>
+                    <span className="text-sm md:text-base text-white/80">{point}</span>
                   </motion.div>
                 ))}
               </div>
