@@ -11,6 +11,7 @@ interface CustomStyle extends CSSProperties {
 
 export default function Hero() {
   return (
+    <section id="home">
     <div className="min-h-screen pt-20 lg:pt-0 flex items-center justify-center relative overflow-hidden">
       {/* <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-r from-yellow-500/20 to-transparent dark:from-yellow-500/10" />
@@ -44,7 +45,7 @@ export default function Hero() {
               </Button>
               <Button
                 className="bg-yellow-500 hover:bg-yellow-600 text-black"
-                onClick={() => window.location.href = "#contact"}
+                onClick={() => window.location.href = "#contact-form"}
               >
                 Hire Me
               </Button>
@@ -121,5 +122,6 @@ export default function Hero() {
         </div>
       </div>
     </div>
+    </section>
   );
 }

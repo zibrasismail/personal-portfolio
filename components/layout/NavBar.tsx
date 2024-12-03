@@ -1,144 +1,169 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useTheme } from "next-themes";
-import Link from "next/link";
-import { Menu, Sun, Moon } from "lucide-react";
-import Image from "next/image";
+import { Menu, X } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
-export default function Navbar() {
+const navItems = [
+  {
+    path: "home",
+    label: "Home",
+  },
+  {
+    path: "about",
+    label: "About",
+  },
+  {
+    path: "education",
+    label: "Education",
+  },
+  {
+    path: "experience",
+    label: "Experience",
+  },
+  {
+    path: "skills",
+    label: "Skills",
+  },
+  {
+    path: "projects",
+    label: "Projects",
+  },
+  {
+    path: "contact-form",
+    label: "Contact",
+  },
+];
+
+export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
-  const { theme, setTheme } = useTheme();
+  const [activeSection, setActiveSection] = useState("");
+  const menuRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    setMounted(true);
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(event.target as Node) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  if (!mounted) {
-    return (
-      <nav className="fixed w-full bg-white/80 dark:bg-black/80 backdrop-blur-sm z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex-shrink-0">
-              <Link href="/">
-                <Image
-                  src="/brand.png"
-                  alt="Logo"
-                  width={120}
-                  height={20}
-                  className="h-8 w-auto"
-                />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </nav>
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { threshold: 0.5 }
     );
-  }
+
+    document.querySelectorAll("section[id]").forEach((section) => {
+      observer.observe(section);
+    });
+
+    return () => {
+      document.querySelectorAll("section[id]").forEach((section) => {
+        observer.unobserve(section);
+      });
+    };
+  }, []);
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
+    e.preventDefault();
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const navHeight = 64;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - navHeight;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
+    }
+    setIsOpen(false);
+  };
 
   return (
-    <nav className="fixed w-full bg-white/80 dark:bg-black/80 backdrop-blur-sm z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-black/40 backdrop-blur-md border-b border-white/10 text-white">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <div className="flex-shrink-0">
-            <Link href="/">
-              <Image
-                src="/brand.png"
-                alt="Logo"
-                width={120}
-                height={20}
-                className="h-8 w-auto"
-              />
-              {/* <span className="text-yellow-500">ZibrasIsmail</span> */}
-            </Link>
-          </div>
-          
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-center space-x-4">
-              <Link href="/" className="hover:text-yellow-500 transition-colors">
-                Home
-              </Link>
-              <Link href="#about" className="hover:text-yellow-500 transition-colors">
-                About
-              </Link>
-              <Link href="#skills" className="hover:text-yellow-500 transition-colors">
-                Skills
-              </Link>
-              <Link href="#contact" className="hover:text-yellow-500 transition-colors">
-                Contact
-              </Link>
-              <button
-                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
-                aria-label="Toggle theme"
-              >
-                {theme === "dark" ? (
-                  <Sun className="h-5 w-5" />
-                ) : (
-                  <Moon className="h-5 w-5" />
-                )}
-              </button>
+          <a
+            href="#home"
+            onClick={(e) => handleNavClick(e, 'home')}
+            className="text-xl font-bold flex items-center gap-2 text-white"
+          >
+            <div className="w-8 h-8 rounded-full bg-yellow-500 flex items-center justify-center">
+              <span className="text-black">ZI</span>
             </div>
+          </a>
+
+          <div className="hidden md:flex md:items-center md:space-x-4">
+            {navItems.map((item) => (
+              <a
+                key={item.path}
+                href={`#${item.path}`}
+                onClick={(e) => handleNavClick(e, item.path)}
+                className={`px-3 py-2 rounded-full text-sm transition-colors ${
+                  activeSection === item.path
+                    ? "bg-yellow-500/10 text-yellow-500"
+                    : "hover:bg-white/5 text-white hover:text-white"
+                }`}
+              >
+                {item.label}
+              </a>
+            ))}
           </div>
 
-          <div className="md:hidden flex items-center">
-            <button
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 mr-2"
-            >
-              {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-            </button>
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
-              aria-label="Toggle menu"
-            >
+          <button
+            ref={buttonRef}
+            onClick={() => setIsOpen(!isOpen)}
+            className="md:hidden p-2 rounded-full hover:bg-white/5 transition-colors text-white"
+          >
+            {isOpen ? (
+              <X className="h-6 w-6" />
+            ) : (
               <Menu className="h-6 w-6" />
-            </button>
-          </div>
+            )}
+          </button>
         </div>
+      </div>
 
-        {isOpen && (
-          <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white dark:bg-black">
-              <Link
-                href="/"
-                className="block px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800"
-                onClick={() => setIsOpen(false)}
-              >
-                Home
-              </Link>
-              <Link
-                href="#about"
-                className="block px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800"
-                onClick={() => setIsOpen(false)}
-              >
-                About
-              </Link>
-              <Link
-                href="#skills"
-                className="block px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800"
-                onClick={() => setIsOpen(false)}
-              >
-                Skills
-              </Link>
-              <Link
-                href="#contact"
-                className="block px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800"
-                onClick={() => setIsOpen(false)}
-              >
-                Contact
-              </Link>
-              <button
-                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="w-full text-left px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800"
-              >
-                {theme === "dark" ? "Light Mode" : "Dark Mode"}
-              </button>
-            </div>
-          </div>
-        )}
+      <div
+        ref={menuRef}
+        className={`md:hidden absolute top-16 left-0 right-0 transition-all duration-300 ease-in-out ${
+          isOpen
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 -translate-y-2 pointer-events-none"
+        }`}
+      >
+        <div className="bg-black/40 backdrop-blur-md border-b border-white/10 py-2 px-4 space-y-1">
+          {navItems.map((item) => (
+            <a
+              key={item.path}
+              href={`#${item.path}`}
+              onClick={(e) => handleNavClick(e, item.path)}
+              className={`block px-4 py-2 rounded-xl text-sm transition-colors ${
+                activeSection === item.path
+                  ? "bg-yellow-500/10 text-yellow-500"
+                  : "hover:bg-white/5 text-white hover:text-white"
+              }`}
+            >
+              {item.label}
+            </a>
+          ))}
+        </div>
       </div>
     </nav>
   );

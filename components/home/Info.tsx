@@ -5,7 +5,7 @@ import { Download } from "lucide-react";
 
 export default function Info() {
   return (
-    <section className="py-20 px-4 md:px-8 relative overflow-hidden">
+    <section id="info" className="py-20 px-4 md:px-8 relative overflow-hidden">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -37,7 +37,7 @@ export default function Info() {
               className="flex justify-center"
             >
               <a
-                href="#contact"
+                href="#contact-form"
                 className="inline-flex items-center gap-2 bg-yellow-500 hover:bg-yellow-600 text-black px-6 py-3 rounded-full font-medium transition-colors"
               >
                 <Download className="w-5 h-5" />

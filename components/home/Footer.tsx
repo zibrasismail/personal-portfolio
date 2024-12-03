@@ -86,7 +86,14 @@ export default function Footer() {
           <div className="flex-1" />
           <span className="text-sm">
             Designed & Built by{" "}
-            <span className="text-yellow-500">Zibras Ismail</span>
+            <a 
+              href="https://github.com/zibrasIsmail" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-yellow-500 hover:underline hover:text-yellow-400 transition-colors"
+            >
+              Zibras Ismail
+            </a>
           </span>
         </motion.div>
       </div>
