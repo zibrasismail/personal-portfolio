@@ -37,7 +37,7 @@ export default function Info() {
               className="flex justify-center"
             >
               <a
-                href="/resume.pdf"
+                href="#contact"
                 className="inline-flex items-center gap-2 bg-yellow-500 hover:bg-yellow-600 text-black px-6 py-3 rounded-full font-medium transition-colors"
               >
                 <Download className="w-5 h-5" />
