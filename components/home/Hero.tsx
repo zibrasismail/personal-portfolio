@@ -12,7 +12,7 @@ interface CustomStyle extends CSSProperties {
 export default function Hero() {
   return (
     <section id="home">
-    <div className="min-h-screen pt-20 lg:pt-0 flex items-center justify-center relative overflow-hidden">
+    <div className="min-h-screen pt-20 lg:pt-10  flex items-center justify-center relative overflow-hidden">
       {/* <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-r from-yellow-500/20 to-transparent dark:from-yellow-500/10" />
         <div className="absolute right-0 bottom-0 w-[800px] h-[800px] bg-yellow-500/20 rounded-full blur-3xl dark:bg-yellow-500/10" />
@@ -53,7 +53,7 @@ export default function Hero() {
           </div>
           
           <div className="flex-1 relative">
-            <div className="relative w-[300px] h-[300px] lg:w-[500px] lg:h-[500px]">
+            <div className="relative w-[300px] h-[300px] lg:w-[500px] lg:h-[500px] mx-auto">
               <Image
                 src="/profile.jpg"
                 alt="Zibras Ismail"
@@ -62,59 +62,59 @@ export default function Hero() {
                 priority
               />
             </div>
-
+            
             {/* Tech stack tags */}
-            <div className="absolute inset-0">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[380px] h-[380px] lg:w-[600px] lg:h-[600px] hidden lg:block">
               {/* NextJS - Top */}
-              <div className="absolute -top-4 left-1/2 -translate-x-1/2 animate-orbit" style={{ '--rotation': '0deg' } as CustomStyle}>
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 animate-orbit" style={{ '--rotation': '0deg' } as CustomStyle}>
                 <div className="flex items-center gap-2 bg-white/90 dark:bg-black/90 p-2 rounded-lg shadow-lg">
                   <Image 
                     src="/nextjs.svg" 
                     alt="NextJS" 
-                    width={30} 
-                    height={30}
+                    width={24} 
+                    height={24}
                     className="dark:invert" 
                   />
-                  <span className="text-sm font-medium">NextJS</span>
+                  <span className="text-xs font-medium">NextJS</span>
                 </div>
               </div>
 
               {/* Tailwind - Right */}
-              <div className="absolute top-1/2 -right-4 -translate-y-1/2 animate-orbit" style={{ '--rotation': '90deg' } as CustomStyle}>
+              <div className="absolute top-1/2 right-0 -translate-y-1/2 animate-orbit" style={{ '--rotation': '90deg' } as CustomStyle}>
                 <div className="flex items-center gap-2 bg-white/90 dark:bg-black/90 p-2 rounded-lg shadow-lg">
                   <Image 
                     src="/tailwind.svg" 
                     alt="Tailwind" 
-                    width={30} 
-                    height={30}
+                    width={24} 
+                    height={24}
                   />
-                  <span className="text-sm font-medium">Tailwind</span>
+                  <span className="text-xs font-medium">Tailwind</span>
                 </div>
               </div>
 
               {/* React - Bottom */}
-              <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 animate-orbit" style={{ '--rotation': '180deg' } as CustomStyle}>
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 animate-orbit" style={{ '--rotation': '180deg' } as CustomStyle}>
                 <div className="flex items-center gap-2 bg-white/90 dark:bg-black/90 p-2 rounded-lg shadow-lg">
                   <Image 
                     src="/react.svg" 
                     alt="React" 
-                    width={30} 
-                    height={30}
+                    width={24} 
+                    height={24}
                   />
-                  <span className="text-sm font-medium">React</span>
+                  <span className="text-xs font-medium">React</span>
                 </div>
               </div>
 
               {/* JavaScript - Left */}
-              <div className="absolute top-1/2 -left-4 -translate-y-1/2 animate-orbit" style={{ '--rotation': '270deg' } as CustomStyle}>
+              <div className="absolute top-1/2 left-0 -translate-y-1/2 animate-orbit" style={{ '--rotation': '270deg' } as CustomStyle}>
                 <div className="flex items-center gap-2 bg-white/90 dark:bg-black/90 p-2 rounded-lg shadow-lg">
                   <Image 
                     src="/javascript.svg" 
                     alt="JavaScript" 
-                    width={30} 
-                    height={30}
+                    width={24} 
+                    height={24}
                   />
-                  <span className="text-sm font-medium">JavaScript</span>
+                  <span className="text-xs font-medium">JavaScript</span>
                 </div>
               </div>
             </div>
