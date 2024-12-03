@@ -3,6 +3,7 @@ import Connect from "@/components/home/Connect";
 import ContactForm from "@/components/home/ContactForm";
 import Education from "@/components/home/Education";
 import Experience from "@/components/home/Experience";
+import Footer from "@/components/home/Footer";
 import Hero from "@/components/home/Hero";
 import Info from "@/components/home/Info";
 import Projects from "@/components/home/Projects";
@@ -24,6 +25,7 @@ export default function Home() {
       <Projects />
       <Connect />
       <ContactForm />
+      <Footer />
     </main>
   );
 }
