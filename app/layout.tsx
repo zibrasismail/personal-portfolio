@@ -7,8 +7,12 @@ import Navbar from "@/components/layout/NavBar";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Nikunj Thesiya - Frontend Developer",
-  description: "Frontend Developer and Web Designer with 3.9+ years of experience",
+  title: "Zibras Ismail - Full Stack Developer",
+  description: "Full Stack Developer with 1+ years of experience",
+  icons: {
+    icon: { url: "/brand.png", type: "image/png" },
+    shortcut: { url: "/brand.png", type: "image/png" }
+  }
 };
 
 export default function RootLayout({

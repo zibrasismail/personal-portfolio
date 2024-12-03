@@ -77,11 +77,22 @@ const config: Config = {
   				to: {
   					height: '0'
   				}
+  			},
+  			'float-slow': {
+  				'0%, 100%': { transform: 'translate(0, 0)' },
+  				'50%': { transform: 'translate(0, 20px)' },
+  			},
+  			'orbit': {
+  				'0%': { transform: 'rotate(0deg) translateX(0) rotate(0deg)' },
+  				'50%': { transform: 'rotate(180deg) translateX(20px) rotate(-180deg)' },
+  				'100%': { transform: 'rotate(360deg) translateX(0) rotate(-360deg)' }
   			}
   		},
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
-  			'accordion-up': 'accordion-up 0.2s ease-out'
+  			'accordion-up': 'accordion-up 0.2s ease-out',
+  			'float-slow': 'float-slow 5s ease-in-out infinite',
+  			'orbit': 'orbit 8s ease-in-out infinite',
   		}
   	}
   },

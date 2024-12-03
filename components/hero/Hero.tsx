@@ -3,6 +3,11 @@
 import { Download } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { CSSProperties } from "react";
+
+interface CustomStyle extends CSSProperties {
+  '--rotation': string;
+}
 
 export default function Hero() {
   return (
@@ -12,7 +17,7 @@ export default function Hero() {
         <div className="absolute right-0 bottom-0 w-[800px] h-[800px] bg-yellow-500/20 rounded-full blur-3xl dark:bg-yellow-500/10" />
       </div>
       
-      <div className="container mx-auto px-4 z-10">
+      <div className="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 z-10">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
           <div className="flex-1 text-center lg:text-left">
             <div className="mb-6">
@@ -33,7 +38,7 @@ export default function Hero() {
               <Button
                 variant="outline"
                 className="flex items-center gap-2"
-                onClick={() => window.open("/resume.pdf", "_blank")}
+                onClick={() => window.open("https://drive.google.com/uc?export=download&id=1LHj5EKpTh4RGk5M14jL61VbVv1Wgm43b", "_blank")}
               >
                 <Download className="h-4 w-4" /> Resume
               </Button>
@@ -50,29 +55,66 @@ export default function Hero() {
             <div className="relative w-[300px] h-[300px] lg:w-[500px] lg:h-[500px]">
               <Image
                 src="/profile.jpg"
-                alt="Nikunj Thesiya"
+                alt="Zibras Ismail"
                 fill
                 className="object-cover rounded-full"
                 priority
               />
             </div>
-            
-            <div className="absolute -z-10 animate-float">
-              <div className="tech-bubble top-0 left-0">
-                <Image src="/nextjs.svg" alt="NextJS" width={40} height={40} />
-                <span>NextJS</span>
+
+            {/* Tech stack tags */}
+            <div className="absolute inset-0">
+              {/* NextJS - Top */}
+              <div className="absolute -top-4 left-1/2 -translate-x-1/2 animate-orbit" style={{ '--rotation': '0deg' } as CustomStyle}>
+                <div className="flex items-center gap-2 bg-white/90 dark:bg-black/90 p-2 rounded-lg shadow-lg">
+                  <Image 
+                    src="/nextjs.svg" 
+                    alt="NextJS" 
+                    width={30} 
+                    height={30}
+                    className="dark:invert" 
+                  />
+                  <span className="text-sm font-medium">NextJS</span>
+                </div>
               </div>
-              <div className="tech-bubble top-20 right-0">
-                <Image src="/tailwind.svg" alt="Tailwind CSS" width={40} height={40} />
-                <span>Tailwind CSS</span>
+
+              {/* Tailwind - Right */}
+              <div className="absolute top-1/2 -right-4 -translate-y-1/2 animate-orbit" style={{ '--rotation': '90deg' } as CustomStyle}>
+                <div className="flex items-center gap-2 bg-white/90 dark:bg-black/90 p-2 rounded-lg shadow-lg">
+                  <Image 
+                    src="/tailwind.svg" 
+                    alt="Tailwind" 
+                    width={30} 
+                    height={30}
+                  />
+                  <span className="text-sm font-medium">Tailwind</span>
+                </div>
               </div>
-              <div className="tech-bubble bottom-20 left-0">
-                <Image src="/react.svg" alt="ReactJS" width={40} height={40} />
-                <span>ReactJS</span>
+
+              {/* React - Bottom */}
+              <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 animate-orbit" style={{ '--rotation': '180deg' } as CustomStyle}>
+                <div className="flex items-center gap-2 bg-white/90 dark:bg-black/90 p-2 rounded-lg shadow-lg">
+                  <Image 
+                    src="/react.svg" 
+                    alt="React" 
+                    width={30} 
+                    height={30}
+                  />
+                  <span className="text-sm font-medium">React</span>
+                </div>
               </div>
-              <div className="tech-bubble bottom-0 right-20">
-                <Image src="/javascript.svg" alt="JavaScript" width={40} height={40} />
-                <span>JavaScript</span>
+
+              {/* JavaScript - Left */}
+              <div className="absolute top-1/2 -left-4 -translate-y-1/2 animate-orbit" style={{ '--rotation': '270deg' } as CustomStyle}>
+                <div className="flex items-center gap-2 bg-white/90 dark:bg-black/90 p-2 rounded-lg shadow-lg">
+                  <Image 
+                    src="/javascript.svg" 
+                    alt="JavaScript" 
+                    width={30} 
+                    height={30}
+                  />
+                  <span className="text-sm font-medium">JavaScript</span>
+                </div>
               </div>
             </div>
           </div>
