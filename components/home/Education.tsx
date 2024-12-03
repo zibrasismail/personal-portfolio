@@ -53,8 +53,9 @@ export default function Education() {
               </div>
 
               {/* Type Badge */}
-              <div className="absolute top-8 right-8 bg-white/10 px-4 py-1.5 rounded-full text-sm font-medium">
-                {edu.type}
+              <div className="absolute top-8 right-8 bg-white/10 px-4 py-1.5 rounded-full text-sm font-medium flex items-center gap-1.5">
+                <GraduationCap className="w-4 h-4 text-yellow-500" />
+                <span>{edu.type}</span>
               </div>
 
               {/* Degree Badges */}
