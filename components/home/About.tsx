@@ -39,13 +39,8 @@ const interests = [
 
 export default function About() {
   return (
-    <section id="about" className="py-20 relative overflow-hidden">
-      {/* <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-l from-yellow-500/20 to-transparent dark:from-yellow-500/10" />
-        <div className="absolute left-0 bottom-0 w-[800px] h-[800px] bg-yellow-500/20 rounded-full blur-3xl dark:bg-yellow-500/10" />
-      </div> */}
-      
-      <div className="container mx-auto px-4 relative z-10">
+    <section id="about" className="min-h-screen py-20 lg:py-0 flex items-center">
+      <div className="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8">
         <motion.h2 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -55,7 +50,7 @@ export default function About() {
           About <span className="text-yellow-500">Me</span>
         </motion.h2>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
