@@ -25,6 +25,8 @@ import {
   SiGit,
   SiNotion,
   SiPostman,
+  SiPostgresql,
+  SiZod
 } from "react-icons/si";
 import { RiSupabaseLine } from "react-icons/ri";
 import { VscVscode } from "react-icons/vsc";
@@ -44,6 +46,8 @@ const skills = {
     { name: "Supabase", icon: RiSupabaseLine },
     { name: "AWS", icon: FaAws },
     { name: "MongoDB", icon: DiMongodb },
+    { name: "PostgreSQL", icon: SiPostgresql },
+    { name: "Zod", icon: SiZod },
     { name: "React Hook Forms", icon: SiReacthookform },
     { name: "Tailwind CSS", icon: SiTailwindcss },
     { name: "GraphQL", icon: SiGraphql },
