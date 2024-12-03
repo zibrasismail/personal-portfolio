@@ -148,13 +148,13 @@ export default function NavBar() {
             : "opacity-0 -translate-y-2 pointer-events-none"
         }`}
       >
-        <div className="bg-black/40 backdrop-blur-md border-b border-white/10 py-2 px-4 space-y-1">
+        <div className="bg-black/80 backdrop-blur-xl border-b border-white/10 py-2 px-4 space-y-1">
           {navItems.map((item) => (
             <a
               key={item.path}
               href={`#${item.path}`}
               onClick={(e) => handleNavClick(e, item.path)}
-              className={`block px-4 py-2 rounded-xl text-sm transition-colors ${
+              className={`block px-4 py-3 rounded-xl text-base md:text-sm transition-colors ${
                 activeSection === item.path
                   ? "bg-yellow-500/10 text-yellow-500"
                   : "hover:bg-white/5 text-white hover:text-white"
