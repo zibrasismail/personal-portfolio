@@ -17,7 +17,7 @@ import { RiSupabaseLine } from "react-icons/ri";
 
 const projects = [
   {
-    title: "Oassis",
+    title: "The Wild Oasis",
     description: "A Hotel Booking Web Application with Admin Panel",
     image: "/projects/Oasis.png",
     backgroundColor: "bg-black/40 backdrop-blur-sm",

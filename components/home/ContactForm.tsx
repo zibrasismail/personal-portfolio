@@ -1,14 +1,51 @@
 "use client";
 
 import { motion } from "motion/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+const COOLDOWN_HOURS = 2; // Hours to wait between submissions
+const COOLDOWN_MS = COOLDOWN_HOURS * 60 * 60 * 1000; // Convert hours to milliseconds
 
 export default function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [cooldownRemaining, setCooldownRemaining] = useState<number>(0);
+
+  useEffect(() => {
+    // Check cooldown on component mount and every minute
+    const checkCooldown = () => {
+      const lastSubmission = localStorage.getItem('lastFormSubmission');
+      if (lastSubmission) {
+        const timeSinceLastSubmission = Date.now() - parseInt(lastSubmission);
+        const remainingTime = Math.max(0, COOLDOWN_MS - timeSinceLastSubmission);
+        setCooldownRemaining(remainingTime);
+      }
+    };
+
+    checkCooldown();
+    const interval = setInterval(checkCooldown, 60000); // Check every minute
+    return () => clearInterval(interval);
+  }, []);
+
+  const formatCooldownTime = (ms: number): string => {
+    const hours = Math.floor(ms / (60 * 60 * 1000));
+    const minutes = Math.floor((ms % (60 * 60 * 1000)) / (60 * 1000));
+    return `${hours}h ${minutes}m`;
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    // Check if user is in cooldown period
+    const lastSubmission = localStorage.getItem('lastFormSubmission');
+    if (lastSubmission) {
+      const timeSinceLastSubmission = Date.now() - parseInt(lastSubmission);
+      if (timeSinceLastSubmission < COOLDOWN_MS) {
+        setSubmitStatus('error');
+        return;
+      }
+    }
+
     setIsSubmitting(true);
 
     const form = e.currentTarget;
@@ -26,6 +63,10 @@ export default function ContactForm() {
       if (response.ok) {
         setSubmitStatus('success');
         form.reset();
+        // Store submission timestamp
+        localStorage.setItem('lastFormSubmission', Date.now().toString());
+        // Update cooldown
+        setCooldownRemaining(COOLDOWN_MS);
       } else {
         console.error('Form submission failed:', await response.text());
         setSubmitStatus('error');
@@ -67,25 +108,9 @@ export default function ContactForm() {
             <p className="text-gray-400">
               I appreciate you reaching out. I&apos;ll get back to you as soon as possible.
             </p>
-            <button
-              onClick={() => setSubmitStatus('idle')}
-              className="inline-flex items-center gap-2 bg-white/5 hover:bg-white/10 px-6 py-3 rounded-full transition-colors"
-            >
-              <span>Send Another Message</span>
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M14 5l7 7m0 0l-7 7m7-7H3"
-                />
-              </svg>
-            </button>
+            <div className="text-sm text-yellow-500/80">
+              Note: You can submit another message in {formatCooldownTime(cooldownRemaining)}
+            </div>
           </motion.div>
         </div>
       </section>
@@ -111,6 +136,12 @@ export default function ContactForm() {
             transition={{ duration: 0.5 }}
             className="bg-black/40 backdrop-blur-sm border border-white/10 rounded-3xl p-8 relative z-10"
           >
+            {cooldownRemaining > 0 && (
+              <div className="absolute top-0 left-0 right-0 bg-yellow-500/10 text-center py-2 rounded-t-3xl">
+                You can submit another message in {formatCooldownTime(cooldownRemaining)}
+              </div>
+            )}
+            
             <form 
               onSubmit={handleSubmit}
               className="space-y-6"
@@ -130,6 +161,7 @@ export default function ContactForm() {
                     placeholder="Full Name *"
                     required
                     className="w-full px-4 py-3 bg-white/5 rounded-full border border-white/10 focus:border-yellow-500/50 focus:outline-none focus:ring-1 focus:ring-yellow-500/50 transition-colors"
+                    disabled={cooldownRemaining > 0}
                   />
                 </div>
                 <div className="space-y-2">
@@ -139,6 +171,7 @@ export default function ContactForm() {
                     placeholder="Email *"
                     required
                     className="w-full px-4 py-3 bg-white/5 rounded-full border border-white/10 focus:border-yellow-500/50 focus:outline-none focus:ring-1 focus:ring-yellow-500/50 transition-colors"
+                    disabled={cooldownRemaining > 0}
                   />
                 </div>
               </div>
@@ -150,6 +183,7 @@ export default function ContactForm() {
                     name="mobile"
                     placeholder="Mobile No."
                     className="w-full px-4 py-3 bg-white/5 rounded-full border border-white/10 focus:border-yellow-500/50 focus:outline-none focus:ring-1 focus:ring-yellow-500/50 transition-colors"
+                    disabled={cooldownRemaining > 0}
                   />
                 </div>
                 <div className="space-y-2">
@@ -159,6 +193,7 @@ export default function ContactForm() {
                     placeholder="Subject *"
                     required
                     className="w-full px-4 py-3 bg-white/5 rounded-full border border-white/10 focus:border-yellow-500/50 focus:outline-none focus:ring-1 focus:ring-yellow-500/50 transition-colors"
+                    disabled={cooldownRemaining > 0}
                   />
                 </div>
               </div>
@@ -170,22 +205,27 @@ export default function ContactForm() {
                   required
                   rows={6}
                   className="w-full px-4 py-3 bg-white/5 rounded-2xl border border-white/10 focus:border-yellow-500/50 focus:outline-none focus:ring-1 focus:ring-yellow-500/50 transition-colors resize-none"
+                  disabled={cooldownRemaining > 0}
                 />
               </div>
 
-              {submitStatus === 'error' && (
+              {submitStatus === 'error' && cooldownRemaining > 0 ? (
+                <div className="text-red-500 text-sm">
+                  Please wait {formatCooldownTime(cooldownRemaining)} before submitting another message.
+                </div>
+              ) : submitStatus === 'error' ? (
                 <div className="text-red-500 text-sm">
                   Something went wrong. Please try again.
                 </div>
-              )}
+              ) : null}
 
               <div>
                 <button
                   type="submit"
-                  disabled={isSubmitting}
+                  disabled={isSubmitting || cooldownRemaining > 0}
                   className="px-8 py-3 bg-yellow-500 text-black font-semibold rounded-full hover:bg-yellow-400 transition-colors flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {isSubmitting ? 'Sending...' : 'Send'}
+                  {isSubmitting ? 'Sending...' : cooldownRemaining > 0 ? `Wait ${formatCooldownTime(cooldownRemaining)}` : 'Send'}
                   <svg
                     className="w-4 h-4"
                     fill="none"
