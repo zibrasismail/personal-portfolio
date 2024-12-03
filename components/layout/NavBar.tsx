@@ -13,12 +13,12 @@ const navItems = [
     label: "About",
   },
   {
-    path: "education",
-    label: "Education",
-  },
-  {
     path: "experience",
     label: "Experience",
+  },
+  {
+    path: "education",
+    label: "Education",
   },
   {
     path: "skills",
