@@ -22,14 +22,20 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className={`${inter.className} relative min-h-screen bg-white dark:bg-neutral-950`}>
+        <div className="fixed inset-0 pointer-events-none">
+          <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/30 via-transparent to-transparent" />
+          <div className="absolute left-0 bottom-0 w-[800px] h-[800px] bg-yellow-500/30 rounded-full blur-[128px]" />
+        </div>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
           disableTransitionOnChange
         >
-          <Navbar />
-          {children}
+          <main className="relative z-10">
+            <Navbar />
+            {children}
+          </main>
         </ThemeProvider>
       </body>
     </html>

@@ -40,10 +40,10 @@ const interests = [
 export default function About() {
   return (
     <section id="about" className="py-20 relative overflow-hidden">
-      <div className="absolute inset-0 z-0">
+      {/* <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-l from-yellow-500/20 to-transparent dark:from-yellow-500/10" />
         <div className="absolute left-0 bottom-0 w-[800px] h-[800px] bg-yellow-500/20 rounded-full blur-3xl dark:bg-yellow-500/10" />
-      </div>
+      </div> */}
       
       <div className="container mx-auto px-4 relative z-10">
         <motion.h2 

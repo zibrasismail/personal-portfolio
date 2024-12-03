@@ -18,7 +18,7 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: linear-gradient(0deg, rgb(var(--background-start-rgb)), rgb(var(--background-end-rgb)));
     --foreground: 0 0% 3.9%;
     --card: 0 0% 100%;
     --card-foreground: 0 0% 3.9%;
@@ -41,7 +41,7 @@
   }
 
   .dark {
-    --background: 0 0% 3.9%;
+    --background: linear-gradient(0deg, rgb(var(--background-start-rgb)), rgb(var(--background-end-rgb)));
     --foreground: 0 0% 98%;
     --card: 0 0% 3.9%;
     --card-foreground: 0 0% 98%;
@@ -68,7 +68,7 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-white dark:bg-black/95;
   }
 }
 
