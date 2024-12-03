@@ -39,7 +39,7 @@ const interests = [
 
 export default function About() {
   return (
-    <section id="about" className="min-h-screen py-20 lg:py-0 flex items-center">
+    <section id="about" className="min-h-screen py-5 lg:py-0  flex items-center">
       <div className="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8">
         <motion.h2 
           initial={{ opacity: 0, y: 20 }}

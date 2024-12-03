@@ -26,7 +26,7 @@ const educationData = [
 
 export default function Education() {
   return (
-    <section id="education" className="py-20 px-4 md:px-8">
+    <section id="education" className="py-10 px-4 md:px-8">
       <div className="max-w-6xl mx-auto">
         <motion.h2 
           initial={{ opacity: 0, y: 20 }}
